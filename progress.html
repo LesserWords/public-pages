@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Keroshop — estado de implementação por capacidade.">
+</head>
+<body>
+<title>Keroshop — Progresso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --paper: #FAF7F2;
+    --card: #FFFFFF;
+    --ink: #211C24;
+    --ink-soft: #5B5560;
+    --line: #E4DED6;
+    --accent: #D6336C;
+    --ok: #1F8A54;
+    --ok-bg: #E7F4EC;
+    --warn: #B7791F;
+    --warn-bg: #FBF0DC;
+    --wait: #6B6570;
+    --wait-bg: #EDE9E3;
+    --shadow: 0 1px 2px rgba(33,28,36,.05), 0 8px 24px -14px rgba(33,28,36,.16);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #16131A; --card: #211C29; --ink: #F3EEF4; --ink-soft: #A79FAE; --line: #322B3A;
+      --accent: #FF6E9C;
+      --ok: #57D08B; --ok-bg: #14301F; --warn: #E8B45E; --warn-bg: #33260F;
+      --wait: #A79FAE; --wait-bg: #2A2431;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #16131A; --card: #211C29; --ink: #F3EEF4; --ink-soft: #A79FAE; --line: #322B3A;
+    --accent: #FF6E9C;
+    --ok: #57D08B; --ok-bg: #14301F; --warn: #E8B45E; --warn-bg: #33260F;
+    --wait: #A79FAE; --wait-bg: #2A2431;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1020px; margin: 0 auto; padding: 48px 32px 56px; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; text-transform: uppercase; letter-spacing: .12em; font-size: .68rem; font-weight: 600; color: var(--ink-soft); }
+
+  header.top { border-bottom: 2px solid var(--ink); padding-bottom: 18px; margin-bottom: 24px; }
+  h1 { font-family: "Fraunces", serif; font-weight: 900; font-size: 2rem; letter-spacing: -.02em; margin: 6px 0 4px; }
+  h1 .dot { color: var(--accent); }
+  .sub { color: var(--ink-soft); font-size: .95rem; margin: 0; }
+
+  /* Summary tiles */
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 22px 0 34px; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow); }
+  .tile .n { font-family: "Fraunces", serif; font-weight: 900; font-size: 1.9rem; line-height: 1; }
+  .tile .lbl { font-size: .82rem; color: var(--ink-soft); margin-top: 4px; }
+  .tile.ok .n { color: var(--ok); }
+  .tile.warn .n { color: var(--warn); }
+  .tile.wait .n { color: var(--wait); }
+  .tile.total .n { color: var(--accent); }
+
+  /* Group */
+  .group { margin-bottom: 30px; }
+  .group-head { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; }
+  .group-head h2 { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.18rem; margin: 0; letter-spacing: -.01em; }
+  .group-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .count-chip { font-family: "IBM Plex Mono", monospace; font-size: .7rem; font-weight: 600; padding: 2px 9px; border-radius: 999px; }
+  .count-chip.ok { color: var(--ok); background: var(--ok-bg); }
+  .count-chip.warn { color: var(--warn); background: var(--warn-bg); }
+  .count-chip.wait { color: var(--wait); background: var(--wait-bg); }
+
+  .rowscroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 640px; }
+  thead th { font-family: "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .08em; font-size: .64rem; font-weight: 600; color: var(--ink-soft); text-align: left; padding: 0 12px 8px; }
+  thead th.c { text-align: center; width: 78px; }
+  tbody tr { background: var(--card); }
+  tbody td { border-top: 1px solid var(--line); padding: 13px 12px; vertical-align: top; }
+  tbody tr td:first-child { border-left: 3px solid var(--stripe, var(--line)); border-top-left-radius: 0; }
+  tr.g-ok td:first-child { --stripe: var(--ok); }
+  tr.g-warn td:first-child { --stripe: var(--warn); }
+  tr.g-wait td:first-child { --stripe: var(--wait); }
+  .cap { font-weight: 600; font-size: .95rem; }
+  .ctx { font-family: "IBM Plex Mono", monospace; font-size: .7rem; color: var(--ink-soft); margin-top: 2px; }
+  .note { font-size: .84rem; color: var(--ink-soft); }
+  .note strong { color: var(--ink); font-weight: 600; }
+  td.c { text-align: center; font-size: 1rem; }
+  .yes { color: var(--ok); font-weight: 700; }
+  .no { color: var(--wait); }
+  .partial { color: var(--warn); font-weight: 700; }
+
+  .pill { display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: .64rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .pill.ok { color: var(--ok); background: var(--ok-bg); }
+  .pill.warn { color: var(--warn); background: var(--warn-bg); }
+  .pill.wait { color: var(--wait); background: var(--wait-bg); }
+  .money { display: inline-block; margin-left: 6px; font-size: .7rem; color: var(--accent); font-weight: 600; }
+  .chg { font-family: "IBM Plex Mono", monospace; font-size: .68rem; color: var(--accent); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 16px 22px; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); font-size: .8rem; color: var(--ink-soft); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+
+  .foot { margin-top: 22px; font-size: .78rem; color: var(--ink-soft); }
+  .foot code { font-family: "IBM Plex Mono", monospace; background: var(--wait-bg); padding: 1px 5px; border-radius: 4px; }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 28px 18px; }
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+    h1 { font-size: 1.6rem; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <span class="mono">Estado de implementação · MVP</span>
+    <h1>Keroshop<span class="dot">.</span> Progresso</h1>
+    <p class="sub">Cada capacidade do produto por estado real: backend, interface e se o usuário alcança de fato. 13 capacidades mapeadas nos 12 bounded contexts + app admin.</p>
+  </header>
+
+  <div class="tiles">
+    <div class="tile ok"><div class="n">9</div><div class="lbl">No ar (usável)</div></div>
+    <div class="tile warn"><div class="n">1</div><div class="lbl">Parcial</div></div>
+    <div class="tile wait"><div class="n">3</div><div class="lbl">Só backend</div></div>
+    <div class="tile total"><div class="n">13</div><div class="lbl">Total</div></div>
+  </div>
+
+  <!-- SHIPPED -->
+  <section class="group">
+    <div class="group-head"><h2>No ar</h2><span class="count-chip ok">9 usáveis</span></div>
+    <div class="rowscroll">
+      <table>
+        <thead>
+          <tr><th>Capacidade</th><th class="c">Backend</th><th class="c">Interface</th><th class="c">Alcançável</th><th>Notas</th></tr>
+        </thead>
+        <tbody>
+          <tr class="g-ok">
+            <td><div class="cap">Login & Contas</div><div class="ctx">accounts · auth</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td>
+            <td class="note">Login, perfil, chaves de API e <strong>/configuracoes</strong> (perfil, org, pagamentos).</td>
+          </tr>
+          <tr class="g-ok">
+            <td><div class="cap">DNA da Marca</div><div class="ctx">brands</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td>
+            <td class="note">Landing: cole a URL → análise. Painel DNA no Studio. Extração via LLM (cores, tipografia, voz, público).</td>
+          </tr>
+          <tr class="g-ok">
+            <td><div class="cap">Vitrine / Studio visual</div><div class="ctx">shopfront</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td>
+            <td class="note">Editor arrastar-e-soltar (AST), preview em tempo real, auto-save, publicar com 1 clique.</td>
+          </tr>
+          <tr class="g-ok">
+            <td><div class="cap">Catálogo de Produtos</div><div class="ctx">shopfront · erp</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td>
+            <td class="note">Cadastro, variações de cor, canais de venda. Import de planilha CSV. <strong>Imagens só por URL</strong> — upload de arquivo vira base64 local, não sobe pro servidor.</td>
+          </tr>
+          <tr class="g-ok">
+            <td><div class="cap">Loja pública + Checkout</div><div class="ctx">shopfront · checkout</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td>
+            <td class="note">Página pública da loja; sessão de checkout (<code>/api/checkout/session</code>). Depende da config do provider de pagamento.</td>
+          </tr>
+          <tr class="g-ok">
+            <td><div class="cap">Cobrança SaaS (Stripe)</div><div class="ctx">billing</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td>
+            <td class="note">Página de planos, retorno de cobrança, aba Organização (plano + quota). Ships no Stripe primeiro.</td>
+          </tr>
+          <tr class="g-ok">
+            <td><div class="cap">Console Admin</div><div class="ctx">backoffice</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td>
+            <td class="note">App <strong>admin/</strong> separado (deployment próprio), 15 chamadas <code>/api/admin</code>.</td>
+          </tr>
+          <tr class="g-ok">
+            <td><div class="cap">Jobs assíncronos</div><div class="ctx">jobs</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td><td class="c"><span class="yes">✓</span></td>
+            <td class="note">Infra de polling (<code>useAsyncJob</code>, backoff+jitter). Sustenta toda geração assíncrona.</td>
+          </tr>
+          <tr class="g-ok">
+            <td><div class="cap">Webhooks</div><div class="ctx">webhooks</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="no">—</span></td><td class="c"><span class="yes">✓</span></td>
+            <td class="note">Registro e entrega de eventos. Voltado a integrações (API), sem UI por design.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PARTIAL -->
+  <section class="group">
+    <div class="group-head"><h2>Parcial</h2><span class="count-chip warn">1 meio-caminho</span></div>
+    <div class="rowscroll">
+      <table>
+        <thead>
+          <tr><th>Capacidade</th><th class="c">Backend</th><th class="c">Interface</th><th class="c">Alcançável</th><th>Notas</th></tr>
+        </thead>
+        <tbody>
+          <tr class="g-warn">
+            <td><div class="cap">Foto de Produto por IA <span class="money">💰 candidato a pago</span></div><div class="ctx">assets</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="partial">◐</span></td><td class="c"><span class="partial">◐</span></td>
+            <td class="note"><strong>Backend real</strong> (fal.ai: remove fundo, gera cena, relight; presets). Modal "Estúdio IA" existe no form de produto. <strong>Falta upload de imagem</strong> — hoje exige uma URL já hospedada; o upload local só gera base64. Para virar feature paga: (1) upload real → storage, (2) paywall por plano/quota.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BACKEND ONLY -->
+  <section class="group">
+    <div class="group-head"><h2>Só backend (sem interface)</h2><span class="count-chip wait">3 dormentes</span></div>
+    <div class="rowscroll">
+      <table>
+        <thead>
+          <tr><th>Capacidade</th><th class="c">Backend</th><th class="c">Interface</th><th class="c">Alcançável</th><th>Notas · proposta</th></tr>
+        </thead>
+        <tbody>
+          <tr class="g-wait">
+            <td><div class="cap">Campanhas / Anúncios IA</div><div class="ctx">campaigns</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="no">✗</span></td><td class="c"><span class="no">✗</span></td>
+            <td class="note">Estrategista Gemini real gera copy + variações por canal. Zero UI chama. <span class="chg">add-campaigns-web-ui</span></td>
+          </tr>
+          <tr class="g-wait">
+            <td><div class="cap">Motor de Renderização</div><div class="ctx">renders</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="no">✗</span></td><td class="c"><span class="no">✗</span></td>
+            <td class="note">Playwright/Chromium renderiza template+marca em PNG. Engine interno, sem preview no front. <span class="chg">add-renders-web-ui</span></td>
+          </tr>
+          <tr class="g-wait">
+            <td><div class="cap">Catálogo de Templates</div><div class="ctx">templates_</div></td>
+            <td class="c"><span class="yes">✓</span></td><td class="c"><span class="no">✗</span></td><td class="c"><span class="no">✗</span></td>
+            <td class="note">Endpoints list + detail servidos do catálogo seed. Sem tela pra navegar. <span class="chg">add-templates-catalog-ui</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="legend">
+    <span><span class="swatch" style="background:var(--ok)"></span> No ar — usável ponta a ponta</span>
+    <span><span class="swatch" style="background:var(--warn)"></span> Parcial — backend pronto, UX incompleta</span>
+    <span><span class="swatch" style="background:var(--wait)"></span> Só backend — sem interface</span>
+    <span>✓ pronto · ◐ parcial · ✗ ausente · — não se aplica</span>
+  </div>
+
+  <p class="foot">Fonte: leitura do código (rotas em <code>config/urls.py</code>, chamadas reais fora do client Orval gerado, adapters de infra). As 3 lacunas de UI já têm proposta staged em <code>openspec/changes/</code>. A foto por IA é a mais perto de shippar — backend gera de verdade, falta só upload + paywall.</p>
+</div>
+
+</body>
+</html>
