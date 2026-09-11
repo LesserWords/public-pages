@@ -1,29 +1,36 @@
 # public-pages
 
-Static one-off HTML pages for Keroshop, served over **GitHub Pages**.
+Páginas HTML avulsas da Keroshop, servidas via **GitHub Pages**.
 
-**Live:** https://lesserwords.github.io/public-pages/
+**Ao vivo:** https://lesserwords.github.io/public-pages/
 
-## Pages
+## Aplicação
 
-| Page | Live URL |
-|------|----------|
-| Index (hub) | https://lesserwords.github.io/public-pages/ |
-| Briefing (sales one-pager) | https://lesserwords.github.io/public-pages/briefing.html |
-| Progress (implementation status) | https://lesserwords.github.io/public-pages/progress.html |
+| Ambiente | URL |
+|----------|-----|
+| Landing (site) | https://keroshop.com.br |
+| App | https://app.keroshop.com.br |
 
-## Add a new page
+## Páginas
 
-1. Drop a complete, standalone `.html` file in the repo root (with `<!doctype html>`, `<head>`, `<body>`).
-2. Commit and push to `main`.
-3. It appears on the index automatically — `index.html` lists every `.html` in the repo (except itself)
-   via the public GitHub contents API, so there is no list to maintain. The card title is derived from
-   the filename (`my-page.html` → "My Page").
+| Página | URL |
+|--------|-----|
+| Índice (hub) | https://lesserwords.github.io/public-pages/ |
+| Briefing (one-pager de vendas) | https://lesserwords.github.io/public-pages/briefing.html |
+| Progresso (estado de implementação) | https://lesserwords.github.io/public-pages/progress.html |
 
-GitHub Pages rebuilds in ~1–2 min after a push; hard-refresh if you see the old version.
+## Adicionar uma página nova
 
-## Notes
+1. Coloque um arquivo `.html` completo e independente na raiz do repo (com `<!doctype html>`, `<head>`, `<body>`).
+2. Faça commit e push na `main`.
+3. Ela aparece no índice automaticamente — o `index.html` lista todo `.html` do repo (menos ele mesmo)
+   pela API pública do GitHub, então não há lista pra manter. O título do card vem do nome do arquivo
+   (`minha-pagina.html` → "Minha Pagina").
 
-- `.nojekyll` disables Jekyll processing — files are served as-is.
-- Pages source: `main` / root, HTTPS enforced.
-- Everything here is **public**. Don't commit anything private.
+O GitHub Pages reconstrói em ~1–2 min após o push; recarregue forçado se aparecer a versão antiga.
+
+## Notas
+
+- `.nojekyll` desliga o processamento Jekyll — os arquivos são servidos como estão.
+- Fonte do Pages: `main` / raiz, HTTPS forçado.
+- Tudo aqui é **público**. Não faça commit de nada privado.

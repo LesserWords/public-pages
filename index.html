@@ -52,6 +52,17 @@
   .f { display: block; margin-top: 3px; font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--ink-soft); }
   .go { color: var(--accent); font-weight: 700; font-size: 1.2rem; }
 
+  .live { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+  .live a {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    font-family: "Fraunces", serif; font-weight: 600; font-size: 1rem;
+    padding: 12px 20px; border-radius: 10px; box-shadow: var(--shadow);
+  }
+  .live a.primary { background: var(--accent); color: #fff; }
+  .live a.ghost { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+  .live a:hover, .live a:focus-visible { transform: translateY(-1px); outline: none; }
+  .live a small { display: block; font-family: "IBM Plex Mono", monospace; font-weight: 500; font-size: .62rem; letter-spacing: .08em; opacity: .8; margin-top: 2px; }
+  .section-label { margin: 34px 0 4px; }
   .state { margin-top: 24px; color: var(--ink-soft); font-size: .92rem; }
   .state code { font-family: "IBM Plex Mono", monospace; background: var(--line); padding: 1px 6px; border-radius: 4px; }
   footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); }
@@ -65,6 +76,12 @@
     <p>Índice — atualiza sozinho conforme novos <code style="font-family:'IBM Plex Mono',monospace">.html</code> são adicionados ao repositório.</p>
   </header>
 
+  <div class="live">
+    <a class="primary" href="https://keroshop.com.br">Aplicação ao vivo<small>keroshop.com.br</small></a>
+    <a class="ghost" href="https://app.keroshop.com.br">Entrar no app<small>app.keroshop.com.br</small></a>
+  </div>
+
+  <p class="mono section-label">Páginas</p>
   <ul id="list" hidden></ul>
   <p id="loading" class="state">Carregando páginas…</p>
   <p id="empty" class="state" hidden>Nenhuma página ainda. Adicione um arquivo <code>.html</code> ao repositório.</p>
