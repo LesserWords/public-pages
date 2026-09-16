@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Páginas públicas — índice de projetos.">
-<title>Projetos · Páginas</title>
+<meta name="description" content="Keroshop — páginas públicas.">
+<title>Keroshop · Páginas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
@@ -52,6 +52,16 @@
   .f { display: block; margin-top: 3px; font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--ink-soft); }
   .go { color: var(--accent); font-weight: 700; font-size: 1.2rem; }
 
+  .live { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+  .live a {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    font-family: "Fraunces", serif; font-weight: 600; font-size: 1rem;
+    padding: 12px 20px; border-radius: 10px; box-shadow: var(--shadow);
+  }
+  .live a.primary { background: var(--accent); color: #fff; }
+  .live a.ghost { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+  .live a:hover, .live a:focus-visible { transform: translateY(-1px); outline: none; }
+  .live a small { display: block; font-family: "IBM Plex Mono", monospace; font-weight: 500; font-size: .62rem; letter-spacing: .08em; opacity: .8; margin-top: 2px; }
   .section-label { margin: 34px 0 4px; }
   .state { margin-top: 24px; color: var(--ink-soft); font-size: .92rem; }
   .state code { font-family: "IBM Plex Mono", monospace; background: var(--line); padding: 1px 6px; border-radius: 4px; }
@@ -62,45 +72,53 @@
 <div class="wrap">
   <header>
     <span class="mono">Páginas públicas</span>
-    <h1>Projetos<span class="dot">.</span></h1>
-    <p>Índice de projetos — atualiza sozinho conforme novas pastas são adicionadas ao repositório. Cada pasta tem seu próprio índice.</p>
+    <h1>Keroshop<span class="dot">.</span></h1>
+    <p>Índice — atualiza sozinho conforme novos <code style="font-family:'IBM Plex Mono',monospace">.html</code> são adicionados ao repositório.</p>
   </header>
 
-  <p class="mono section-label">Projetos</p>
+  <div class="live">
+    <a class="primary" href="https://keroshop.com.br">Aplicação ao vivo<small>keroshop.com.br</small></a>
+    <a class="ghost" href="https://app.keroshop.com.br">Entrar no app<small>app.keroshop.com.br</small></a>
+  </div>
+
+  <p class="mono section-label">Páginas</p>
   <ul id="list" hidden></ul>
-  <p id="loading" class="state">Carregando projetos…</p>
-  <p id="empty" class="state" hidden>Nenhum projeto ainda. Crie uma pasta com um <code>index.html</code> no repositório.</p>
-  <p id="error" class="state" hidden>Não foi possível listar agora (limite de API do GitHub). Recarregue em alguns minutos — o link direto continua funcionando: <a href="./keroshop/">keroshop</a>.</p>
+  <p id="loading" class="state">Carregando páginas…</p>
+  <p id="empty" class="state" hidden>Nenhuma página ainda. Adicione um arquivo <code>.html</code> ao repositório.</p>
+  <p id="error" class="state" hidden>Não foi possível listar agora (limite de API do GitHub). Recarregue em alguns minutos — os links diretos continuam funcionando: <a href="./briefing.html">briefing.html</a>, <a href="./progress.html">progress.html</a>.</p>
+
+  <p class="mono section-label"><a href="../" style="color:var(--ink-soft);text-decoration:none">← Todos os projetos</a></p>
 
   <footer class="mono">LesserWords · public-pages</footer>
 </div>
 
 <script>
-  // Auto-list every project folder in the repo root via the public GitHub
-  // contents API. Add a folder with an index.html and it shows up here — no
-  // manifest to maintain. Unauthenticated: 60 req/h per IP, plenty for a hub.
+  // Auto-list every .html in the repo root (except this index) via the public
+  // GitHub contents API. Add an .html file to the repo and it shows up here —
+  // no manifest to maintain. Unauthenticated: 60 req/h per IP, plenty for a hub.
   const REPO = "LesserWords/public-pages";
-  const titleCase = (s) => s.replace(/[-_]+/g, " ")
+  const DIR = "keroshop";
+  const titleCase = (s) => s.replace(/\.html$/i, "").replace(/[-_]+/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase()).trim();
   const el = (id) => document.getElementById(id);
 
-  fetch(`https://api.github.com/repos/${REPO}/contents/?ref=main`, {
+  fetch(`https://api.github.com/repos/${REPO}/contents/${DIR}?ref=main`, {
     headers: { Accept: "application/vnd.github+json" },
   })
     .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then((files) => {
-      const dirs = files
-        .filter((f) => f.type === "dir" && !f.name.startsWith("."))
+      const pages = files
+        .filter((f) => f.type === "file" && /\.html$/i.test(f.name) && f.name.toLowerCase() !== "index.html")
         .sort((a, b) => a.name.localeCompare(b.name));
       el("loading").hidden = true;
-      if (!dirs.length) { el("empty").hidden = false; return; }
+      if (!pages.length) { el("empty").hidden = false; return; }
       const list = el("list");
-      for (const f of dirs) {
+      for (const f of pages) {
         const a = document.createElement("a");
         a.className = "card";
-        a.href = "./" + f.name + "/";
+        a.href = "./" + f.name;
         a.innerHTML = `<span><span class="t">${titleCase(f.name)}</span>` +
-          `<span class="f">${f.name}/</span></span><span class="go" aria-hidden="true">&rarr;</span>`;
+          `<span class="f">${f.name}</span></span><span class="go" aria-hidden="true">&rarr;</span>`;
         const li = document.createElement("li");
         li.appendChild(a);
         list.appendChild(li);
