@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Modelos de DRE e Modelagem Financeira para Startups e Captação de Venture Capital.">
+<title>Modelos de DRE & Modelagem Financeira — Startups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+
+  :root {
+    --paper: #FAF7F2; --card: #FFFFFF; --ink: #211C24; --ink-soft: #5B5560;
+    --line: #E4DED6; --accent: #D6336C; --teal: #0E7C7B; --purple: #6B46C1;
+    --ok: #1F8A54; --ok-bg: #E7F4EC; --warn: #B7791F; --warn-bg: #FBF0DC;
+    --shadow: 0 1px 2px rgba(33,28,36,.05), 0 10px 28px -16px rgba(33,28,36,.22);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #16131A; --card: #211C29; --ink: #F3EEF4; --ink-soft: #A79FAE;
+      --line: #322B3A; --accent: #FF6E9C; --teal: #4FD1C5; --purple: #B794F4;
+      --ok: #57D08B; --ok-bg: #14301F; --warn: #E8B45E; --warn-bg: #33260F;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #16131A; --card: #211C29; --ink: #F3EEF4; --ink-soft: #A79FAE;
+    --line: #322B3A; --accent: #FF6E9C; --teal: #4FD1C5; --purple: #B794F4;
+    --ok: #57D08B; --ok-bg: #14301F; --warn: #E8B45E; --warn-bg: #33260F;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.7);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 40px 24px 64px; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; text-transform: uppercase; letter-spacing: .12em; font-size: .68rem; font-weight: 600; color: var(--ink-soft); }
+  
+  /* Shared Top Navigation */
+  .top-nav {
+    position: sticky; top: 0; z-index: 1000;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.03);
+  }
+  .nav-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .nav-brand {
+    display: inline-flex; align-items: center; gap: 8px;
+    text-decoration: none; color: var(--ink); font-weight: 700;
+  }
+  .nav-brand .brand-title {
+    font-family: "Fraunces", serif; font-size: 1.12rem; letter-spacing: -.02em;
+  }
+  .nav-brand .dot { color: var(--accent); }
+  .nav-badge {
+    font-family: "IBM Plex Mono", monospace; font-size: .62rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    background: var(--line); color: var(--ink-soft);
+    padding: 2px 7px; border-radius: 999px;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 4px;
+    list-style: none; margin: 0; padding: 0;
+  }
+  .nav-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 8px;
+    text-decoration: none; color: var(--ink-soft);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-weight: 500; font-size: .84rem;
+    transition: all .15s ease;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--ink); background: color-mix(in srgb, var(--line) 65%, transparent);
+  }
+  .nav-link.active { color: var(--accent); font-weight: 600; }
+  .nav-dropdown { position: relative; }
+  .nav-dropbtn {
+    background: none; border: none; font-family: inherit;
+    font-size: .84rem; font-weight: 500; color: var(--ink-soft);
+    padding: 6px 12px; border-radius: 8px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+    transition: all .15s ease;
+  }
+  .nav-dropbtn:hover, .nav-dropdown:hover .nav-dropbtn, .nav-dropdown:focus-within .nav-dropbtn {
+    color: var(--ink); background: color-mix(in srgb, var(--line) 65%, transparent);
+  }
+  .nav-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 4px); right: 0;
+    min-width: 230px; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; box-shadow: var(--shadow); padding: 6px;
+    z-index: 1010;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu {
+    display: block;
+  }
+  .nav-dropdown-menu a {
+    display: block; padding: 8px 12px; border-radius: 6px;
+    text-decoration: none; color: var(--ink); font-size: .82rem;
+    transition: background .12s, color .12s;
+  }
+  .nav-dropdown-menu a:hover {
+    background: color-mix(in srgb, var(--line) 50%, transparent); color: var(--accent);
+  }
+  .nav-dropdown-menu a.active {
+    color: var(--accent); font-weight: 600;
+  }
+  .nav-dropdown-menu .menu-divider {
+    height: 1px; background: var(--line); margin: 4px 6px;
+  }
+  .nav-dropdown-menu .menu-label {
+    font-family: "IBM Plex Mono", monospace; font-size: .62rem;
+    text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-soft); padding: 6px 12px 2px;
+  }
+  @media (max-width: 720px) {
+    .nav-inner { flex-direction: column; align-items: stretch; gap: 8px; }
+    .nav-links { flex-wrap: wrap; justify-content: flex-start; }
+    .nav-dropdown-menu { right: auto; left: 0; }
+  }
+
+  /* Sub navigation tabs */
+  .sub-tabs {
+    display: flex; gap: 8px; margin: 24px 0 32px; border-bottom: 1px solid var(--line);
+    padding-bottom: 12px; overflow-x: auto;
+  }
+  .sub-tab {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+    border-radius: 999px; text-decoration: none; color: var(--ink-soft);
+    font-family: "IBM Plex Sans", sans-serif; font-size: .86rem; font-weight: 500;
+    background: var(--card); border: 1px solid var(--line); white-space: nowrap;
+    transition: all .15s ease;
+  }
+  .sub-tab:hover { border-color: var(--accent); color: var(--ink); }
+  .sub-tab.active {
+    background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600;
+  }
+
+  /* KPI Stats */
+  .kpis {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 28px 0;
+  }
+  .kpi-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; box-shadow: var(--shadow);
+  }
+  .kpi-num {
+    font-family: "Fraunces", serif; font-size: 1.8rem; font-weight: 900;
+    color: var(--accent); line-height: 1.1;
+  }
+  .kpi-label {
+    font-size: .82rem; color: var(--ink-soft); margin-top: 4px; font-weight: 500;
+  }
+
+  /* Filter Controls */
+  .filter-box {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px; margin-bottom: 28px; box-shadow: var(--shadow);
+  }
+  .search-row {
+    display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .search-input {
+    flex: 1; min-width: 240px; padding: 12px 16px; font-size: .92rem;
+    font-family: inherit; background: var(--paper); border: 1px solid var(--line);
+    border-radius: 10px; color: var(--ink); outline: none;
+    transition: border-color .15s;
+  }
+  .search-input:focus { border-color: var(--accent); }
+  .select-filter {
+    padding: 12px 16px; font-size: .88rem; font-family: inherit;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+    color: var(--ink); outline: none; cursor: pointer;
+  }
+  .chips-row {
+    display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+  }
+  .chip {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 12px; font-size: .78rem; font-weight: 500; color: var(--ink-soft);
+    cursor: pointer; transition: all .12s;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--ink); }
+  .chip.active { background: var(--ink); color: var(--paper); border-color: var(--ink); font-weight: 600; }
+
+  /* Toolbar */
+  .toolbar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px; flex-wrap: wrap; gap: 12px; font-size: .88rem; color: var(--ink-soft);
+  }
+  .view-toggle {
+    display: inline-flex; background: var(--line); border-radius: 8px; padding: 2px;
+  }
+  .view-btn {
+    border: none; background: transparent; padding: 5px 12px; font-size: .8rem;
+    font-weight: 600; border-radius: 6px; cursor: pointer; color: var(--ink-soft);
+    transition: all .12s;
+  }
+  .view-btn.active { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+
+  /* Cards Grid */
+  .vc-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .vc-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px; box-shadow: var(--shadow); display: flex; flex-direction: column;
+    justify-content: space-between; transition: transform .15s ease, border-color .15s ease;
+  }
+  .vc-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .vc-head {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;
+  }
+  .vc-name {
+    font-family: "Fraunces", serif; font-size: 1.2rem; font-weight: 700;
+    color: var(--ink); margin: 0; line-height: 1.2;
+  }
+  .vc-name a { color: inherit; text-decoration: none; }
+  .vc-name a:hover { color: var(--accent); }
+  .badge-tipo {
+    font-family: "IBM Plex Mono", monospace; font-size: .65rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .06em; padding: 3px 8px; border-radius: 6px;
+    background: var(--line); color: var(--ink); white-space: nowrap;
+  }
+  .badge-sede {
+    font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--ink-soft);
+    margin: 4px 0 10px; display: block;
+  }
+  .tags-list {
+    display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .tag-item {
+    font-size: .72rem; font-weight: 500; background: color-mix(in srgb, var(--line) 40%, transparent);
+    border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; color: var(--ink-soft);
+  }
+  .vc-tese {
+    font-size: .88rem; color: var(--ink-soft); line-height: 1.45; margin-bottom: 14px;
+    flex: 1;
+  }
+  .vc-meta {
+    border-top: 1px solid var(--line); padding-top: 12px; margin-top: auto;
+    display: flex; flex-direction: column; gap: 6px; font-size: .8rem;
+  }
+  .vc-meta-row { display: flex; justify-content: space-between; gap: 8px; }
+  .vc-meta-label { color: var(--ink-soft); font-weight: 500; }
+  .vc-meta-val { font-weight: 600; text-align: right; }
+  .badge-agro-alta { color: var(--ok); background: var(--ok-bg); padding: 1px 6px; border-radius: 4px; }
+  .badge-agro-media { color: var(--warn); background: var(--warn-bg); padding: 1px 6px; border-radius: 4px; }
+
+  /* Table View */
+  .table-wrap {
+    overflow-x: auto; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; box-shadow: var(--shadow);
+  }
+  table.vc-table {
+    width: 100%; border-collapse: collapse; font-size: .85rem; text-align: left;
+  }
+  table.vc-table th {
+    background: var(--paper); padding: 12px 16px; border-bottom: 1px solid var(--line);
+    font-family: "IBM Plex Mono", monospace; font-size: .68rem; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--ink-soft); font-weight: 600;
+  }
+  table.vc-table td {
+    padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top;
+  }
+  table.vc-table tr:last-child td { border-bottom: none; }
+  table.vc-table tr:hover td { background: color-mix(in srgb, var(--line) 30%, transparent); }
+
+  /* Downloads section */
+  .downloads-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px;
+  }
+  .dl-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 20px; box-shadow: var(--shadow); display: flex;
+    justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .dl-info .dl-title {
+    font-weight: 600; font-size: .95rem; margin-bottom: 2px;
+  }
+  .dl-info .dl-meta {
+    font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--ink-soft);
+  }
+  .dl-btn {
+    display: inline-flex; align-items: center; gap: 6px; background: var(--accent);
+    color: #fff; text-decoration: none; padding: 8px 14px; border-radius: 8px;
+    font-size: .8rem; font-weight: 600; white-space: nowrap; transition: transform .12s;
+  }
+  .dl-btn:hover { transform: translateY(-1px); }
+
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+
+  @media (max-width: 768px) {
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .vc-grid, .downloads-grid { grid-template-columns: 1fr; }
+    .wrap { padding: 24px 16px 48px; }
+  }
+
+  .dre-section {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 28px; margin-bottom: 32px; box-shadow: var(--shadow);
+  }
+  .dre-section h2 {
+    font-family: "Fraunces", serif; font-size: 1.5rem; font-weight: 700;
+    margin: 4px 0 12px; letter-spacing: -.01em;
+  }
+  .block-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0;
+  }
+  .block-item {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px;
+  }
+  .block-title {
+    font-family: "Fraunces", serif; font-size: 1.05rem; font-weight: 600;
+    margin-bottom: 6px; color: var(--ink);
+  }
+  .block-desc { font-size: .84rem; color: var(--ink-soft); line-height: 1.45; }
+  
+  .table-preview-wrap {
+    overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; margin: 20px 0;
+  }
+  table.dre-table {
+    width: 100%; border-collapse: collapse; font-size: .82rem; font-family: "IBM Plex Mono", monospace;
+  }
+  table.dre-table th {
+    background: var(--paper); padding: 10px 14px; border-bottom: 2px solid var(--ink);
+    text-align: right; font-weight: 600; white-space: nowrap;
+  }
+  table.dre-table th:first-child { text-align: left; }
+  table.dre-table td {
+    padding: 8px 14px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap;
+  }
+  table.dre-table td:first-child { text-align: left; font-weight: 500; }
+  table.dre-table tr.header-row td {
+    background: color-mix(in srgb, var(--accent) 8%, var(--paper));
+    font-weight: 700; color: var(--accent);
+  }
+  table.dre-table tr.total-row td {
+    border-top: 1px solid var(--ink); border-bottom: 2px solid var(--ink);
+    font-weight: 700; color: var(--ink);
+  }
+  @media (max-width: 768px) {
+    .block-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<nav class="top-nav" aria-label="Navegação principal">
+  <div class="nav-inner">
+    <a href="../" class="nav-brand">
+      <span class="brand-title">LesserWords<span class="dot">.</span></span>
+      <span class="nav-badge">Public Pages</span>
+    </a>
+    <div class="nav-links">
+      <a href="../" class="nav-link">Início</a>
+      
+      <div class="nav-dropdown">
+        <button class="nav-dropbtn">Keroshop ▾</button>
+        <div class="nav-dropdown-menu">
+          <div class="menu-label">Páginas do Projeto</div>
+          <a href="../keroshop/">Visão Geral</a>
+          <a href="../keroshop/briefing.html">Briefing Comercial</a>
+          <a href="../keroshop/progress.html">Progresso & Roadmap</a>
+          <div class="menu-divider"></div>
+          <div class="menu-label">Aplicação ao Vivo</div>
+          <a href="https://keroshop.com.br" target="_blank" rel="noopener">Loja Oficial ↗</a>
+          <a href="https://app.keroshop.com.br" target="_blank" rel="noopener">Entrar no App ↗</a>
+        </div>
+      </div>
+      
+      <div class="nav-dropdown">
+        <button class="nav-dropbtn active">Venture Capital ▾</button>
+        <div class="nav-dropdown-menu">
+          <div class="menu-label">Inteligência de Mercado</div>
+          <a href="./" class="">Mapa de VCs (184)</a>
+          <a href="./incubadoras-fundos.html" class="">Fundos & Incubação (70)</a>
+          <a href="./modelos-dre.html" class="active">Modelos de DRE & Métricas</a>
+          <div class="menu-divider"></div>
+          <a href="./#downloads">Baixar Planilhas (CSV/XLSX) ↓</a>
+        </div>
+      </div>
+      
+      <a href="https://github.com/LesserWords/public-pages" target="_blank" rel="noopener" class="nav-link" title="Ver repositório no GitHub">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+
+<div class="wrap">
+  <header style="border-bottom: 2px solid var(--ink); padding-bottom: 20px; margin-bottom: 16px;">
+    <span class="mono">Finanças & Captação &middot; Modelagem</span>
+    <h1 style="font-family:'Fraunces',serif; font-size:2.4rem; font-weight:900; letter-spacing:-.02em; margin: 8px 0 6px;">
+      Modelos de DRE para Startups<span style="color:var(--accent)">.</span>
+    </h1>
+    <p style="color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:70ch;">
+      Estruturas de Demonstração de Resultados (DRE) e modelagem de projeções recomendadas pelo mercado de Venture Capital — modelos para SaaS, produtos e serviços.
+    </p>
+  </header>
+
+  <nav class="sub-tabs" aria-label="Abas do módulo">
+    <a href="./" class="sub-tab">&#128269; Mapa de VCs (184)</a>
+    <a href="./incubadoras-fundos.html" class="sub-tab">&#127963;&#65039; Fundos & Incubação (70)</a>
+    <a href="./modelos-dre.html" class="sub-tab active">&#128202; Modelos de DRE & Métricas</a>
+    <a href="./#downloads" class="sub-tab">&#11015;&#65039; Baixar Planilhas</a>
+  </nav>
+
+  <!-- 1. Bossa Nova SaaS Model -->
+  <article class="dre-section">
+    <span class="mono">Padrão Micro-VC &middot; SaaS & Receita Recorrente</span>
+    <h2>1. Modelo Bossa Nova Investimentos</h2>
+    <p style="color:var(--ink-soft); font-size:.92rem;">
+      A <strong>Bossa Nova Investimentos</strong> é a gestora mais ativa do Brasil em estágio seed/pré-seed (mais de 1.000 startups investidas). Seu template oficial de DRE modela o negócio a partir da <em>evolução da base de clientes</em>, calculando automaticamente receita recorrente (MRR), margem bruta e queima de caixa (burn rate).
+    </p>
+
+    <div class="block-grid">
+      <div class="block-item">
+        <div class="block-title">&#128101; Funil & Retenção</div>
+        <div class="block-desc">
+          Total de Clientes, Clientes Novos e Perdidos mês a mês. O <strong>Churn Rate</strong> afeta diretamente a receita projetada.
+        </div>
+      </div>
+      <div class="block-item">
+        <div class="block-title">&#128200; Receita Recorrente (MRR)</div>
+        <div class="block-desc">
+          Receita bruta gerada pelas assinaturas, separada de receitas não recorrentes (setup, implantação).
+        </div>
+      </div>
+      <div class="block-item">
+        <div class="block-title">&#9878;&#65039; Margem & OpEx</div>
+        <div class="block-desc">
+          Custos do serviço (servidores, APIs), despesas com Pessoal (Headcount) e TI para calcular EBITDA e Runway.
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Table Preview -->
+    <p class="mono" style="margin-top:20px;">Prévia das Projeções (Amostra do Modelo)</p>
+    <div class="table-preview-wrap">
+      <table class="dre-table">
+        <thead>
+          <tr>
+            <th>Linha do DRE / Métrica</th>
+            <th>Dez-25</th>
+            <th>Mar-26</th>
+            <th>Jun-26</th>
+            <th>Set-26</th>
+            <th>Dez-26</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="header-row">
+            <td colspan="6">MÉTRICAS DE CLIENTES</td>
+          </tr>
+          <tr>
+            <td>Total de Clientes Ativos</td>
+            <td>5</td>
+            <td>23</td>
+            <td>50</td>
+            <td>86</td>
+            <td>131</td>
+          </tr>
+          <tr>
+            <td>Novos Clientes no Mês</td>
+            <td>5</td>
+            <td>8</td>
+            <td>11</td>
+            <td>14</td>
+            <td>17</td>
+          </tr>
+          <tr>
+            <td>Churn Rate Mensal (%)</td>
+            <td>0%</td>
+            <td>6%</td>
+            <td>6%</td>
+            <td>5%</td>
+            <td>5%</td>
+          </tr>
+          <tr class="header-row">
+            <td colspan="6">RECEITA & RESULTADO BRUTO</td>
+          </tr>
+          <tr>
+            <td>Receita Recorrente (MRR)</td>
+            <td>R$ 1.000</td>
+            <td>R$ 4.600</td>
+            <td>R$ 10.000</td>
+            <td>R$ 17.200</td>
+            <td>R$ 26.200</td>
+          </tr>
+          <tr>
+            <td>(-) Impostos & Deduções</td>
+            <td>- R$ 60</td>
+            <td>- R$ 276</td>
+            <td>- R$ 600</td>
+            <td>- R$ 1.032</td>
+            <td>- R$ 1.572</td>
+          </tr>
+          <tr>
+            <td>Receita Líquida</td>
+            <td>R$ 940</td>
+            <td>R$ 4.324</td>
+            <td>R$ 9.400</td>
+            <td>R$ 16.168</td>
+            <td>R$ 24.628</td>
+          </tr>
+          <tr>
+            <td>Lucro Bruto (Margem ~95%)</td>
+            <td>R$ 893</td>
+            <td>R$ 4.108</td>
+            <td>R$ 8.930</td>
+            <td>R$ 15.360</td>
+            <td>R$ 23.397</td>
+          </tr>
+          <tr class="header-row">
+            <td colspan="6">DESPESAS OPERACIONAIS & EQUIPE</td>
+          </tr>
+          <tr>
+            <td>Headcount (Tamanho da Equipe)</td>
+            <td>2 pessoas</td>
+            <td>2 pessoas</td>
+            <td>2 pessoas</td>
+            <td>2 pessoas</td>
+            <td>2 pessoas</td>
+          </tr>
+          <tr>
+            <td>Custos com TI / Infra</td>
+            <td>R$ 10.731</td>
+            <td>R$ 11.455</td>
+            <td>R$ 12.228</td>
+            <td>R$ 13.053</td>
+            <td>R$ 13.934</td>
+          </tr>
+          <tr class="total-row">
+            <td>Despesas & Custos Totais</td>
+            <td>R$ 17.170</td>
+            <td>R$ 18.328</td>
+            <td>R$ 19.564</td>
+            <td>R$ 20.884</td>
+            <td>R$ 22.293</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
+      <a href="./dados/DRE - template Bossanova.xlsx" download class="dl-btn">Baixar Template Bossa Nova (.xlsx) &darr;</a>
+      <a href="./dados/DRE - template Bossanova.csv" download class="dl-btn" style="background:var(--card); color:var(--ink); border:1px solid var(--line);">Baixar Dados Brutos (.csv) &darr;</a>
+    </div>
+  </article>
+
+  <!-- 2. Physical Products Model -->
+  <article class="dre-section">
+    <span class="mono">E-commerce & Indústria</span>
+    <h2>2. DRE para Empresa de Produtos Físicos</h2>
+    <p style="color:var(--ink-soft); font-size:.92rem;">
+      Ideal para operações de e-commerce, marcas D2C e manufatura. Considera deduções críticas de bens tangíveis como cancelamentos, devoluções, frete sobre vendas, ICMS (18%), PIS/COFINS e o Custo da Mercadoria Vendida (CMV).
+    </p>
+
+    <div class="block-grid">
+      <div class="block-item">
+        <div class="block-title">Faturamento & Deduções</div>
+        <div class="block-desc">Receita Bruta total menos devoluções de pedidos e impostos incidentes sobre a circulação de mercadorias.</div>
+      </div>
+      <div class="block-item">
+        <div class="block-title">Margem de Contribuição</div>
+        <div class="block-desc">Quanto cada unidade vendida contribui para pagar os custos fixos da empresa após descontar o CMV.</div>
+      </div>
+      <div class="block-item">
+        <div class="block-title">EBITDA & Fluxo de Caixa</div>
+        <div class="block-desc">Planejamento estratégico integrado à taxa interna de retorno (TIR) e fluxo de caixa livre.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;">
+      <a href="./dados/DRE Produtos.xlsx" download class="dl-btn">Baixar DRE Produtos (.xlsx) &darr;</a>
+    </div>
+  </article>
+
+  <!-- 3. Services Model -->
+  <article class="dre-section">
+    <span class="mono">Consultoria & Agências &middot; B2B</span>
+    <h2>3. DRE para Empresa de Serviços</h2>
+    <p style="color:var(--ink-soft); font-size:.92rem;">
+      Estrutura financeira voltada a empresas prestadoras de serviços, software houses e agências. Foca na apuração de ISS, custo de horas técnicas alocadas por projeto (Custo dos Serviços Prestados - CSP) e despesas fixas operacionais.
+    </p>
+
+    <div style="margin-top:16px;">
+      <a href="./dados/DRE Servicos.xlsx" download class="dl-btn">Baixar DRE Serviços (.xlsx) &darr;</a>
+    </div>
+  </article>
+
+  <!-- 4. Venture Capital Metrics Glossary -->
+  <article class="dre-section" style="border-color:var(--accent);">
+    <span class="mono">Captação & Due Diligence</span>
+    <h2>Glossário de Métricas Essenciais para Conversar com VCs</h2>
+    <div class="block-grid">
+      <div class="block-item">
+        <div class="block-title">CAC (Custo de Aquisição)</div>
+        <div class="block-desc">Total investido em Marketing + Vendas dividido pelo número de novos clientes conquistados no período.</div>
+      </div>
+      <div class="block-item">
+        <div class="block-title">LTV (Lifetime Value)</div>
+        <div class="block-desc">Valor total gerado por um cliente ao longo do relacionamento: <code>(Ticket Médio &times; Margem Bruta) &divide; Churn</code>.</div>
+      </div>
+      <div class="block-item">
+        <div class="block-title">Relação LTV / CAC</div>
+        <div class="block-desc">Referência do mercado de VC: <strong>deve ser superior a 3&times;</strong> para garantir que a aquisição é sustentável.</div>
+      </div>
+      <div class="block-item">
+        <div class="block-title">Burn Multiple</div>
+        <div class="block-desc">Mede eficiência de capital: <code>Queima de Caixa Líquida &divide; Novo ARR Gerado</code>. Menor que 1.5x é excelente.</div>
+      </div>
+      <div class="block-item">
+        <div class="block-title">Runway</div>
+        <div class="block-desc">Número de meses que a startup consegue operar com o caixa atual antes de esgotar o capital ou fechar nova rodada.</div>
+      </div>
+      <div class="block-item">
+        <div class="block-title">Gross Margin (Margem Bruta)</div>
+        <div class="block-desc">Em empresas de SaaS puro, espera-se que seja <strong>superior a 75-80%</strong>; em hardware/marketplaces, entre 20% e 50%.</div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="mono">
+    LesserWords &middot; public-pages &middot; <a href="./" style="color:var(--accent); text-decoration:none;">Voltar para o Início do VC</a>
+  </footer>
+</div>
+</body>
+</html>

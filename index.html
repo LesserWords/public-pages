@@ -56,9 +56,138 @@
   .state { margin-top: 24px; color: var(--ink-soft); font-size: .92rem; }
   .state code { font-family: "IBM Plex Mono", monospace; background: var(--line); padding: 1px 6px; border-radius: 4px; }
   footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); }
+
+  /* Shared Top Navigation */
+  .top-nav {
+    position: sticky; top: 0; z-index: 1000;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.03);
+  }
+  .nav-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .nav-brand {
+    display: inline-flex; align-items: center; gap: 8px;
+    text-decoration: none; color: var(--ink); font-weight: 700;
+  }
+  .nav-brand .brand-title {
+    font-family: "Fraunces", serif; font-size: 1.12rem; letter-spacing: -.02em;
+  }
+  .nav-brand .dot { color: var(--accent); }
+  .nav-badge {
+    font-family: "IBM Plex Mono", monospace; font-size: .62rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    background: var(--line); color: var(--ink-soft);
+    padding: 2px 7px; border-radius: 999px;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 4px;
+    list-style: none; margin: 0; padding: 0;
+  }
+  .nav-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 8px;
+    text-decoration: none; color: var(--ink-soft);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-weight: 500; font-size: .84rem;
+    transition: all .15s ease;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--ink); background: color-mix(in srgb, var(--line) 65%, transparent);
+  }
+  .nav-link.active { color: var(--accent); font-weight: 600; }
+  .nav-dropdown { position: relative; }
+  .nav-dropbtn {
+    background: none; border: none; font-family: inherit;
+    font-size: .84rem; font-weight: 500; color: var(--ink-soft);
+    padding: 6px 12px; border-radius: 8px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+    transition: all .15s ease;
+  }
+  .nav-dropbtn:hover, .nav-dropdown:hover .nav-dropbtn, .nav-dropdown:focus-within .nav-dropbtn {
+    color: var(--ink); background: color-mix(in srgb, var(--line) 65%, transparent);
+  }
+  .nav-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 4px); right: 0;
+    min-width: 230px; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; box-shadow: var(--shadow); padding: 6px;
+    z-index: 1010;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu {
+    display: block;
+  }
+  .nav-dropdown-menu a {
+    display: block; padding: 8px 12px; border-radius: 6px;
+    text-decoration: none; color: var(--ink); font-size: .82rem;
+    transition: background .12s, color .12s;
+  }
+  .nav-dropdown-menu a:hover {
+    background: color-mix(in srgb, var(--line) 50%, transparent); color: var(--accent);
+  }
+  .nav-dropdown-menu a.active {
+    color: var(--accent); font-weight: 600;
+  }
+  .nav-dropdown-menu .menu-divider {
+    height: 1px; background: var(--line); margin: 4px 6px;
+  }
+  .nav-dropdown-menu .menu-label {
+    font-family: "IBM Plex Mono", monospace; font-size: .62rem;
+    text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-soft); padding: 6px 12px 2px;
+  }
+  @media (max-width: 720px) {
+    .nav-inner { flex-direction: column; align-items: stretch; gap: 8px; }
+    .nav-links { flex-wrap: wrap; justify-content: flex-start; }
+    .nav-dropdown-menu { right: auto; left: 0; }
+  }
+
 </style>
 </head>
 <body>
+<nav class="top-nav" aria-label="Navegação principal">
+  <div class="nav-inner">
+    <a href="./" class="nav-brand">
+      <span class="brand-title">LesserWords<span class="dot">.</span></span>
+      <span class="nav-badge">Public Pages</span>
+    </a>
+    <div class="nav-links">
+      <a href="./" class="nav-link active">Início</a>
+      
+      <div class="nav-dropdown">
+        <button class="nav-dropbtn">Keroshop ▾</button>
+        <div class="nav-dropdown-menu">
+          <div class="menu-label">Páginas do Projeto</div>
+          <a href="./keroshop/" class="">Visão Geral</a>
+          <a href="./keroshop/briefing.html" class="">Briefing Comercial</a>
+          <a href="./keroshop/progress.html" class="">Progresso & Roadmap</a>
+          <div class="menu-divider"></div>
+          <div class="menu-label">Aplicação ao Vivo</div>
+          <a href="https://keroshop.com.br" target="_blank" rel="noopener">Loja Oficial ↗</a>
+          <a href="https://app.keroshop.com.br" target="_blank" rel="noopener">Entrar no App ↗</a>
+        </div>
+      </div>
+      
+      <div class="nav-dropdown">
+        <button class="nav-dropbtn">Venture Capital ▾</button>
+        <div class="nav-dropdown-menu">
+          <div class="menu-label">Inteligência de Mercado</div>
+          <a href="./venture-capital/" class="">Mapa de VCs (184)</a>
+          <a href="./venture-capital/incubadoras-fundos.html" class="">Fundos & Incubação (70)</a>
+          <a href="./venture-capital/modelos-dre.html" class="">Modelos de DRE & Métricas</a>
+          <div class="menu-divider"></div>
+          <a href="./venture-capital/#downloads">Baixar Planilhas (CSV/XLSX) ↓</a>
+        </div>
+      </div>
+      
+      <a href="https://github.com/LesserWords/public-pages" target="_blank" rel="noopener" class="nav-link" title="Ver repositório no GitHub">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
 <div class="wrap">
   <header>
     <span class="mono">Páginas públicas</span>
@@ -84,6 +213,11 @@
     .replace(/\b\w/g, (c) => c.toUpperCase()).trim();
   const el = (id) => document.getElementById(id);
 
+  const KNOWN_PROJECTS = {
+    "keroshop": { name: "Keroshop", desc: "keroshop/ · Marca e Loja com IA (Briefing, Roadmap & App ao Vivo)" },
+    "venture-capital": { name: "Venture Capital no Brasil", desc: "venture-capital/ · Mapa de 184 Investidores, 70 Fundos & Modelos DRE" }
+  };
+
   fetch(`https://api.github.com/repos/${REPO}/contents/?ref=main`, {
     headers: { Accept: "application/vnd.github+json" },
   })
@@ -92,22 +226,26 @@
       const dirs = files
         .filter((f) => f.type === "dir" && !f.name.startsWith("."))
         .sort((a, b) => a.name.localeCompare(b.name));
-      el("loading").hidden = true;
-      if (!dirs.length) { el("empty").hidden = false; return; }
+      if (!dirs.length) return;
       const list = el("list");
+      list.innerHTML = "";
       for (const f of dirs) {
         const a = document.createElement("a");
         a.className = "card";
         a.href = "./" + f.name + "/";
-        a.innerHTML = `<span><span class="t">${titleCase(f.name)}</span>` +
-          `<span class="f">${f.name}/</span></span><span class="go" aria-hidden="true">&rarr;</span>`;
+        const info = KNOWN_PROJECTS[f.name.toLowerCase()];
+        const title = info ? info.name : titleCase(f.name);
+        const desc = info ? info.desc : f.name + "/";
+        a.innerHTML = `<span><span class="t">${title}</span>` +
+          `<span class="f">${desc}</span></span><span class="go" aria-hidden="true">&rarr;</span>`;
         const li = document.createElement("li");
         li.appendChild(a);
         list.appendChild(li);
       }
-      list.hidden = false;
     })
-    .catch(() => { el("loading").hidden = true; el("error").hidden = false; });
+    .catch(() => {
+      // Keep static cards functional if API limit is reached
+    });
 </script>
 </body>
 </html>

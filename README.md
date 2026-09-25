@@ -1,40 +1,62 @@
 # public-pages
 
-Páginas HTML avulsas, servidas via **GitHub Pages**. Um projeto por pasta; a raiz é um hub que lista os projetos.
+Páginas públicas, ferramentas e recursos interativos servidos via **GitHub Pages**. Um projeto por pasta; a raiz é um hub dinâmico que organiza os projetos com fallback estático instantâneo.
 
-**Ao vivo:** https://lesserwords.github.io/public-pages/
+**Ao vivo:** [https://lesserwords.github.io/public-pages/](https://lesserwords.github.io/public-pages/)
 
-## Estrutura
+---
 
-- **Raiz** (`index.html`) — hub que lista automaticamente as pastas de projeto do repo.
-- **`<projeto>/index.html`** — índice do projeto, lista automaticamente os `.html` daquela pasta.
+## Estrutura do Repositório
 
-## Projetos
+- **Raiz (`index.html`)** — Hub central com barra de navegação global, cartões estáticos de acesso rápido e auto-listagem dinâmica via GitHub API.
+- **`keroshop/`** — Documentos e status comercial da plataforma Keroshop.
+- **`venture-capital/`** — Inteligência de mercado de venture capital, diretório de 184 investidores, 70 gestoras/incubadoras e templates de modelagem financeira (DRE).
+- **`.nojekyll`** — Desativa o processamento Jekyll, garantindo que os arquivos HTML/CSS/JS sejam servidos exatamente como versionados.
 
-### Keroshop — `keroshop/`
+---
 
-Aplicação: https://keroshop.com.br · App: https://app.keroshop.com.br
+## Projetos Publicados
 
-| Página | URL |
-|--------|-----|
-| Índice do projeto | https://lesserwords.github.io/public-pages/keroshop/ |
-| Briefing (one-pager de vendas) | https://lesserwords.github.io/public-pages/keroshop/briefing.html |
-| Progresso (estado de implementação) | https://lesserwords.github.io/public-pages/keroshop/progress.html |
+### 1. Keroshop — `keroshop/`
+Plataforma que transforma URLs e redes sociais em marcas e lojas completas com inteligência artificial.
+- **Aplicação ao vivo:** [keroshop.com.br](https://keroshop.com.br)
+- **Painel / App:** [app.keroshop.com.br](https://app.keroshop.com.br)
 
-## Adicionar um projeto novo
+| Página | Descrição | URL |
+|---|---|---|
+| **Índice do Projeto** | Visão geral dos documentos Keroshop | [Ver Página](https://lesserwords.github.io/public-pages/keroshop/) |
+| **Briefing Comercial** | One-pager de vendas, proposta de valor e modelo de negócio | [Ver Página](https://lesserwords.github.io/public-pages/keroshop/briefing.html) |
+| **Progresso & Roadmap** | Auditoria e estado de implementação técnica das capacidades | [Ver Página](https://lesserwords.github.io/public-pages/keroshop/progress.html) |
 
-1. Crie uma pasta na raiz do repo com um `index.html`. Copie o `keroshop/index.html` como base e ajuste `DIR` para o nome da pasta.
-2. Faça commit e push na `main`. A pasta aparece no hub da raiz automaticamente.
+---
 
-## Adicionar uma página a um projeto
+### 2. Venture Capital & Modelagem Financeira — `venture-capital/`
+Diretório interativo de investidores no Brasil e acervo de planilhas de DRE para startups em fase de captação.
+- **Dados Brutos:** Planilhas originais disponíveis para download direto em CSV e XLSX na pasta `venture-capital/dados/`.
 
-1. Coloque um arquivo `.html` completo e independente dentro da pasta do projeto (com `<!doctype html>`, `<head>`, `<body>`).
-2. Commit e push na `main`. Aparece no índice do projeto automaticamente — o `index.html` lista todo `.html` daquela pasta (menos ele mesmo) pela API pública do GitHub, sem lista pra manter. O título do card vem do nome do arquivo (`minha-pagina.html` → "Minha Pagina").
+| Página | Conteúdo | URL |
+|---|---|---|
+| **Mapa de VCs (184)** | Diretório com busca em tempo real, filtros por modalidade (Early Stage, Aceleradoras, Anjos, CVC, etc.), teses, faixas de cheque e requisitos | [Acessar Diretório](https://lesserwords.github.io/public-pages/venture-capital/) |
+| **Fundos & Incubação (70)** | Lista consolidada de 70 gestoras, programas de aceleração e hubs de inovação com links diretos | [Acessar Lista](https://lesserwords.github.io/public-pages/venture-capital/incubadoras-fundos.html) |
+| **Modelos de DRE & Métricas** | Análise e prévia interativa do modelo padrão Bossa Nova (SaaS), DRE de Produtos (CMV/ICMS) e Serviços, além de glossário de métricas (CAC, LTV, Burn Multiple, Runway) | [Ver Modelos](https://lesserwords.github.io/public-pages/venture-capital/modelos-dre.html) |
 
-O GitHub Pages reconstrói em ~1–2 min após o push; recarregue forçado se aparecer a versão antiga.
+---
 
-## Notas
+## Como Adicionar um Novo Projeto
 
-- `.nojekyll` desliga o processamento Jekyll — os arquivos são servidos como estão.
-- Fonte do Pages: `main` / raiz, HTTPS forçado.
-- Tudo aqui é **público**. Não faça commit de nada privado.
+1. Crie uma nova pasta na raiz do repositório (ex: `meu-projeto/`).
+2. Adicione um `index.html` com o conteúdo ou utilize o layout padrão com a barra de navegação compartilhada (`top-nav`).
+3. Faça commit e push para a branch `main`:
+   ```bash
+   git add .
+   git commit -m "Add meu-projeto"
+   git push origin main
+   ```
+4. O GitHub Pages atualiza o hub e publica a nova pasta em cerca de 1 a 2 minutos.
+
+---
+
+## Políticas e Privacidade
+
+- Todo o conteúdo deste repositório é **público**. Nunca faça commit de segredos, tokens de API ou informações confidenciais.
+- Codificação padrão: **UTF-8**.

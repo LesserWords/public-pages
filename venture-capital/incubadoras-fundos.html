@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Lista com 70 Fundos de Investimento, Aceleradoras e Hubs de Incubação no Brasil.">
+<title>Fundos de Investimento & Incubação — Brasil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+
+  :root {
+    --paper: #FAF7F2; --card: #FFFFFF; --ink: #211C24; --ink-soft: #5B5560;
+    --line: #E4DED6; --accent: #D6336C; --teal: #0E7C7B; --purple: #6B46C1;
+    --ok: #1F8A54; --ok-bg: #E7F4EC; --warn: #B7791F; --warn-bg: #FBF0DC;
+    --shadow: 0 1px 2px rgba(33,28,36,.05), 0 10px 28px -16px rgba(33,28,36,.22);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #16131A; --card: #211C29; --ink: #F3EEF4; --ink-soft: #A79FAE;
+      --line: #322B3A; --accent: #FF6E9C; --teal: #4FD1C5; --purple: #B794F4;
+      --ok: #57D08B; --ok-bg: #14301F; --warn: #E8B45E; --warn-bg: #33260F;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #16131A; --card: #211C29; --ink: #F3EEF4; --ink-soft: #A79FAE;
+    --line: #322B3A; --accent: #FF6E9C; --teal: #4FD1C5; --purple: #B794F4;
+    --ok: #57D08B; --ok-bg: #14301F; --warn: #E8B45E; --warn-bg: #33260F;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.7);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 40px 24px 64px; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; text-transform: uppercase; letter-spacing: .12em; font-size: .68rem; font-weight: 600; color: var(--ink-soft); }
+  
+  /* Shared Top Navigation */
+  .top-nav {
+    position: sticky; top: 0; z-index: 1000;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.03);
+  }
+  .nav-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .nav-brand {
+    display: inline-flex; align-items: center; gap: 8px;
+    text-decoration: none; color: var(--ink); font-weight: 700;
+  }
+  .nav-brand .brand-title {
+    font-family: "Fraunces", serif; font-size: 1.12rem; letter-spacing: -.02em;
+  }
+  .nav-brand .dot { color: var(--accent); }
+  .nav-badge {
+    font-family: "IBM Plex Mono", monospace; font-size: .62rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    background: var(--line); color: var(--ink-soft);
+    padding: 2px 7px; border-radius: 999px;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 4px;
+    list-style: none; margin: 0; padding: 0;
+  }
+  .nav-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 8px;
+    text-decoration: none; color: var(--ink-soft);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-weight: 500; font-size: .84rem;
+    transition: all .15s ease;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--ink); background: color-mix(in srgb, var(--line) 65%, transparent);
+  }
+  .nav-link.active { color: var(--accent); font-weight: 600; }
+  .nav-dropdown { position: relative; }
+  .nav-dropbtn {
+    background: none; border: none; font-family: inherit;
+    font-size: .84rem; font-weight: 500; color: var(--ink-soft);
+    padding: 6px 12px; border-radius: 8px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+    transition: all .15s ease;
+  }
+  .nav-dropbtn:hover, .nav-dropdown:hover .nav-dropbtn, .nav-dropdown:focus-within .nav-dropbtn {
+    color: var(--ink); background: color-mix(in srgb, var(--line) 65%, transparent);
+  }
+  .nav-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 4px); right: 0;
+    min-width: 230px; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; box-shadow: var(--shadow); padding: 6px;
+    z-index: 1010;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu {
+    display: block;
+  }
+  .nav-dropdown-menu a {
+    display: block; padding: 8px 12px; border-radius: 6px;
+    text-decoration: none; color: var(--ink); font-size: .82rem;
+    transition: background .12s, color .12s;
+  }
+  .nav-dropdown-menu a:hover {
+    background: color-mix(in srgb, var(--line) 50%, transparent); color: var(--accent);
+  }
+  .nav-dropdown-menu a.active {
+    color: var(--accent); font-weight: 600;
+  }
+  .nav-dropdown-menu .menu-divider {
+    height: 1px; background: var(--line); margin: 4px 6px;
+  }
+  .nav-dropdown-menu .menu-label {
+    font-family: "IBM Plex Mono", monospace; font-size: .62rem;
+    text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-soft); padding: 6px 12px 2px;
+  }
+  @media (max-width: 720px) {
+    .nav-inner { flex-direction: column; align-items: stretch; gap: 8px; }
+    .nav-links { flex-wrap: wrap; justify-content: flex-start; }
+    .nav-dropdown-menu { right: auto; left: 0; }
+  }
+
+  /* Sub navigation tabs */
+  .sub-tabs {
+    display: flex; gap: 8px; margin: 24px 0 32px; border-bottom: 1px solid var(--line);
+    padding-bottom: 12px; overflow-x: auto;
+  }
+  .sub-tab {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+    border-radius: 999px; text-decoration: none; color: var(--ink-soft);
+    font-family: "IBM Plex Sans", sans-serif; font-size: .86rem; font-weight: 500;
+    background: var(--card); border: 1px solid var(--line); white-space: nowrap;
+    transition: all .15s ease;
+  }
+  .sub-tab:hover { border-color: var(--accent); color: var(--ink); }
+  .sub-tab.active {
+    background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600;
+  }
+
+  /* KPI Stats */
+  .kpis {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 28px 0;
+  }
+  .kpi-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; box-shadow: var(--shadow);
+  }
+  .kpi-num {
+    font-family: "Fraunces", serif; font-size: 1.8rem; font-weight: 900;
+    color: var(--accent); line-height: 1.1;
+  }
+  .kpi-label {
+    font-size: .82rem; color: var(--ink-soft); margin-top: 4px; font-weight: 500;
+  }
+
+  /* Filter Controls */
+  .filter-box {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px; margin-bottom: 28px; box-shadow: var(--shadow);
+  }
+  .search-row {
+    display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .search-input {
+    flex: 1; min-width: 240px; padding: 12px 16px; font-size: .92rem;
+    font-family: inherit; background: var(--paper); border: 1px solid var(--line);
+    border-radius: 10px; color: var(--ink); outline: none;
+    transition: border-color .15s;
+  }
+  .search-input:focus { border-color: var(--accent); }
+  .select-filter {
+    padding: 12px 16px; font-size: .88rem; font-family: inherit;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+    color: var(--ink); outline: none; cursor: pointer;
+  }
+  .chips-row {
+    display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+  }
+  .chip {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 12px; font-size: .78rem; font-weight: 500; color: var(--ink-soft);
+    cursor: pointer; transition: all .12s;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--ink); }
+  .chip.active { background: var(--ink); color: var(--paper); border-color: var(--ink); font-weight: 600; }
+
+  /* Toolbar */
+  .toolbar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px; flex-wrap: wrap; gap: 12px; font-size: .88rem; color: var(--ink-soft);
+  }
+  .view-toggle {
+    display: inline-flex; background: var(--line); border-radius: 8px; padding: 2px;
+  }
+  .view-btn {
+    border: none; background: transparent; padding: 5px 12px; font-size: .8rem;
+    font-weight: 600; border-radius: 6px; cursor: pointer; color: var(--ink-soft);
+    transition: all .12s;
+  }
+  .view-btn.active { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+
+  /* Cards Grid */
+  .vc-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .vc-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px; box-shadow: var(--shadow); display: flex; flex-direction: column;
+    justify-content: space-between; transition: transform .15s ease, border-color .15s ease;
+  }
+  .vc-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .vc-head {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;
+  }
+  .vc-name {
+    font-family: "Fraunces", serif; font-size: 1.2rem; font-weight: 700;
+    color: var(--ink); margin: 0; line-height: 1.2;
+  }
+  .vc-name a { color: inherit; text-decoration: none; }
+  .vc-name a:hover { color: var(--accent); }
+  .badge-tipo {
+    font-family: "IBM Plex Mono", monospace; font-size: .65rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .06em; padding: 3px 8px; border-radius: 6px;
+    background: var(--line); color: var(--ink); white-space: nowrap;
+  }
+  .badge-sede {
+    font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--ink-soft);
+    margin: 4px 0 10px; display: block;
+  }
+  .tags-list {
+    display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .tag-item {
+    font-size: .72rem; font-weight: 500; background: color-mix(in srgb, var(--line) 40%, transparent);
+    border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; color: var(--ink-soft);
+  }
+  .vc-tese {
+    font-size: .88rem; color: var(--ink-soft); line-height: 1.45; margin-bottom: 14px;
+    flex: 1;
+  }
+  .vc-meta {
+    border-top: 1px solid var(--line); padding-top: 12px; margin-top: auto;
+    display: flex; flex-direction: column; gap: 6px; font-size: .8rem;
+  }
+  .vc-meta-row { display: flex; justify-content: space-between; gap: 8px; }
+  .vc-meta-label { color: var(--ink-soft); font-weight: 500; }
+  .vc-meta-val { font-weight: 600; text-align: right; }
+  .badge-agro-alta { color: var(--ok); background: var(--ok-bg); padding: 1px 6px; border-radius: 4px; }
+  .badge-agro-media { color: var(--warn); background: var(--warn-bg); padding: 1px 6px; border-radius: 4px; }
+
+  /* Table View */
+  .table-wrap {
+    overflow-x: auto; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; box-shadow: var(--shadow);
+  }
+  table.vc-table {
+    width: 100%; border-collapse: collapse; font-size: .85rem; text-align: left;
+  }
+  table.vc-table th {
+    background: var(--paper); padding: 12px 16px; border-bottom: 1px solid var(--line);
+    font-family: "IBM Plex Mono", monospace; font-size: .68rem; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--ink-soft); font-weight: 600;
+  }
+  table.vc-table td {
+    padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top;
+  }
+  table.vc-table tr:last-child td { border-bottom: none; }
+  table.vc-table tr:hover td { background: color-mix(in srgb, var(--line) 30%, transparent); }
+
+  /* Downloads section */
+  .downloads-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px;
+  }
+  .dl-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 20px; box-shadow: var(--shadow); display: flex;
+    justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .dl-info .dl-title {
+    font-weight: 600; font-size: .95rem; margin-bottom: 2px;
+  }
+  .dl-info .dl-meta {
+    font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--ink-soft);
+  }
+  .dl-btn {
+    display: inline-flex; align-items: center; gap: 6px; background: var(--accent);
+    color: #fff; text-decoration: none; padding: 8px 14px; border-radius: 8px;
+    font-size: .8rem; font-weight: 600; white-space: nowrap; transition: transform .12s;
+  }
+  .dl-btn:hover { transform: translateY(-1px); }
+
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+
+  @media (max-width: 768px) {
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .vc-grid, .downloads-grid { grid-template-columns: 1fr; }
+    .wrap { padding: 24px 16px 48px; }
+  }
+
+  .fundo-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 20px; box-shadow: var(--shadow); display: flex;
+    justify-content: space-between; align-items: center; gap: 16px;
+    transition: transform .12s, border-color .12s;
+  }
+  .fundo-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .fundo-title { font-family: "Fraunces", serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
+  .fundo-sub { font-size: .82rem; color: var(--ink-soft); font-family: "IBM Plex Mono", monospace; }
+  .fundo-link {
+    display: inline-flex; align-items: center; gap: 4px; font-weight: 600; font-size: .82rem;
+    color: var(--accent); text-decoration: none; padding: 6px 12px; border-radius: 8px;
+    background: color-mix(in srgb, var(--line) 40%, transparent); border: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .fundo-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .fundos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px; }
+  @media (max-width: 680px) { .fundos-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<nav class="top-nav" aria-label="Navegação principal">
+  <div class="nav-inner">
+    <a href="../" class="nav-brand">
+      <span class="brand-title">LesserWords<span class="dot">.</span></span>
+      <span class="nav-badge">Public Pages</span>
+    </a>
+    <div class="nav-links">
+      <a href="../" class="nav-link">Início</a>
+      
+      <div class="nav-dropdown">
+        <button class="nav-dropbtn">Keroshop ▾</button>
+        <div class="nav-dropdown-menu">
+          <div class="menu-label">Páginas do Projeto</div>
+          <a href="../keroshop/">Visão Geral</a>
+          <a href="../keroshop/briefing.html">Briefing Comercial</a>
+          <a href="../keroshop/progress.html">Progresso & Roadmap</a>
+          <div class="menu-divider"></div>
+          <div class="menu-label">Aplicação ao Vivo</div>
+          <a href="https://keroshop.com.br" target="_blank" rel="noopener">Loja Oficial ↗</a>
+          <a href="https://app.keroshop.com.br" target="_blank" rel="noopener">Entrar no App ↗</a>
+        </div>
+      </div>
+      
+      <div class="nav-dropdown">
+        <button class="nav-dropbtn active">Venture Capital ▾</button>
+        <div class="nav-dropdown-menu">
+          <div class="menu-label">Inteligência de Mercado</div>
+          <a href="./" class="">Mapa de VCs (184)</a>
+          <a href="./incubadoras-fundos.html" class="active">Fundos & Incubação (70)</a>
+          <a href="./modelos-dre.html" class="">Modelos de DRE & Métricas</a>
+          <div class="menu-divider"></div>
+          <a href="./#downloads">Baixar Planilhas (CSV/XLSX) ↓</a>
+        </div>
+      </div>
+      
+      <a href="https://github.com/LesserWords/public-pages" target="_blank" rel="noopener" class="nav-link" title="Ver repositório no GitHub">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+
+<div class="wrap">
+  <header style="border-bottom: 2px solid var(--ink); padding-bottom: 20px; margin-bottom: 16px;">
+    <span class="mono">Programas & Gestoras &middot; Brasil</span>
+    <h1 style="font-family:'Fraunces',serif; font-size:2.4rem; font-weight:900; letter-spacing:-.02em; margin: 8px 0 6px;">
+      Fundos & Incubação<span style="color:var(--accent)">.</span>
+    </h1>
+    <p style="color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:70ch;">
+      Relação consolidada de <strong>70 gestoras, programas de aceleração e centros de incubação</strong> com links diretos de acesso e estágios atendidos.
+    </p>
+  </header>
+
+  <nav class="sub-tabs" aria-label="Abas do módulo">
+    <a href="./" class="sub-tab">&#128269; Mapa de VCs (184)</a>
+    <a href="./incubadoras-fundos.html" class="sub-tab active">&#127963;&#65039; Fundos & Incubação (70)</a>
+    <a href="./modelos-dre.html" class="sub-tab">&#128202; Modelos de DRE & Métricas</a>
+    <a href="./dados/Lista Fundos de Investimento incubacao.xlsx" download class="sub-tab">&#11015;&#65039; Baixar Lista (XLSX)</a>
+  </nav>
+
+  <div class="filter-box" style="margin-bottom:20px;">
+    <input type="text" id="fundosSearch" class="search-input" style="width:100%;" placeholder="Buscar fundo, gestora ou estágio (ex: Canary, Seed, Aceleração, Anjos)..." autocomplete="off">
+  </div>
+
+  <div class="toolbar">
+    <div>Exibindo <span id="fundosCount" style="font-weight:600; color:var(--ink);">70</span> instituições</div>
+  </div>
+
+  <div id="fundosContainer" class="fundos-grid"></div>
+
+  <footer class="mono">
+    LesserWords &middot; public-pages &middot; <a href="./" style="color:var(--accent); text-decoration:none;">Voltar para Mapa de VCs</a>
+  </footer>
+</div>
+
+<script>
+  const FUNDOS = [{"nome": "1289 Capital", "link": "https://www.1289capital.com/", "estagios": ""}, {"nome": "500 Startups", "link": "https://brasil.500.co/", "estagios": ""}, {"nome": "ABSeed", "link": "http://abseed.com.br/", "estagios": ""}, {"nome": "Aimorés Investimentos", "link": "www.aimoresinvest.com.br", "estagios": ""}, {"nome": "Alexia Ventures", "link": "www.alexia.vc", "estagios": ""}, {"nome": "Alfa Collab", "link": "https://alfacollab.com.br/", "estagios": ""}, {"nome": "Allievo Capital", "link": "https://allievocapital.com/", "estagios": ""}, {"nome": "Ambev Tech", "link": "", "estagios": "Aceleracão, Pré seed, Seed / Pré Série A, Series A, Series B, Series C"}, {"nome": "Anjos do Brasil", "link": "http://www.anjosdobrasil.net", "estagios": ""}, {"nome": "Antera Gestão de Recursos", "link": "www.anteragr.com.br", "estagios": ""}, {"nome": "Astella", "link": "https://astellainvest.com/", "estagios": ""}, {"nome": "Barn", "link": "http://www.barninvest.com.br", "estagios": ""}, {"nome": "Big Bets", "link": "https://www.bigbets.com.br/", "estagios": ""}, {"nome": "Booming Tech Hub", "link": "booming.vc", "estagios": ""}, {"nome": "Boostlab", "link": "http://www.btgpactual.com", "estagios": ""}, {"nome": "Brazil Venture", "link": "http://brazilventurecapital.net/", "estagios": ""}, {"nome": "Bridge Brazil", "link": "https://www.fcjsaopaulo.com.br", "estagios": ""}, {"nome": "Bridge One", "link": "", "estagios": ""}, {"nome": "BZPlan", "link": "", "estagios": ""}, {"nome": "Canary", "link": "http://www.canary.com.br", "estagios": ""}, {"nome": "Capital Lab Ventures", "link": "http://www.capitallab.com.br", "estagios": ""}, {"nome": "Confrapar", "link": "https://confrapar.com.br/", "estagios": ""}, {"nome": "Criatec 2 / Crescera", "link": "http://www.criatec2.com.br", "estagios": ""}, {"nome": "CulturInvest", "link": "www.culturinvest.com.br", "estagios": ""}, {"nome": "DGF Investimentos", "link": "", "estagios": "Seed / Pré Série A, Series A, Series B"}, {"nome": "Duxx Investimentos", "link": "http://duxxinvestimentos.com.br/en/", "estagios": ""}, {"nome": "EquityRio", "link": "https://www.equityrio.com.br/", "estagios": ""}, {"nome": "FEA Angels", "link": "https://feaangels.com.br/", "estagios": ""}, {"nome": "Fundepar", "link": "http://fundepar.com.br/", "estagios": ""}, {"nome": "G2 Capital", "link": "http://g2capital.co/", "estagios": ""}, {"nome": "Garan Ventures", "link": "www.garan.com.br", "estagios": ""}, {"nome": "Gavea Angels", "link": "gaveaangels.org.br", "estagios": ""}, {"nome": "Grão Venture Capital", "link": "http://grao.vc/", "estagios": ""}, {"nome": "GVAngels", "link": "https://www.gvangels.com.br", "estagios": ""}, {"nome": "Happy Capital", "link": "www.happycapital.com.br", "estagios": ""}, {"nome": "HBS Angels", "link": "https://www.hbsangels.com.br/", "estagios": ""}, {"nome": "IndicatorCapital", "link": "http://indicatorcapital.com/", "estagios": ""}, {"nome": "Insper Angels", "link": "www.insperangels.com.br", "estagios": ""}, {"nome": "Investidores.vc", "link": "https://www.investidores.vc", "estagios": ""}, {"nome": "Iporanga Ventures", "link": "http://www.ipo.ventures", "estagios": ""}, {"nome": "KaszeK", "link": "http://www.kaszek.com", "estagios": ""}, {"nome": "Kick Ventures", "link": "http://www.kickgrupo.com.br", "estagios": ""}, {"nome": "KPTL", "link": "https://www.kptl.com.br/", "estagios": ""}, {"nome": "Kria", "link": "http://www.kria.vc", "estagios": ""}, {"nome": "Kviv Ventures", "link": "http://www.kvivventures.com", "estagios": ""}, {"nome": "MAYA Capital", "link": "https://maya.capital/", "estagios": ""}, {"nome": "Meli Fund", "link": "https://www.mercadolibre.com/fund", "estagios": ""}, {"nome": "Mindset Ventures", "link": "http://www.mindset.ventures", "estagios": ""}, {"nome": "Monashees", "link": "http://www.monashees.com.br", "estagios": ""}, {"nome": "Mor Capital", "link": "https://morcapital.com.br/", "estagios": ""}, {"nome": "Movile", "link": "www.movile.com", "estagios": ""}, {"nome": "MSW Capital", "link": "http://mswcapital.com.br/", "estagios": ""}, {"nome": "OneVc", "link": "https://www.onevc.vc/", "estagios": ""}, {"nome": "Orca Ventures", "link": "https://orcaventures.com.br/", "estagios": ""}, {"nome": "Osinova", "link": "www.osinova.com", "estagios": ""}, {"nome": "Performa Investimentos", "link": "http://www.performainvestimentos.com", "estagios": ""}, {"nome": "Poli Angels", "link": "http://poliangels.com.br/", "estagios": ""}, {"nome": "Provence Capital", "link": "https://www.provencecapital.com.br/", "estagios": ""}, {"nome": "RD2 Ventures", "link": "https://rd2.ventures", "estagios": ""}, {"nome": "Redpoint eventures", "link": "http://www.rpev.com.br", "estagios": ""}, {"nome": "Shift Capital", "link": "https://shiftcapital.com.br/", "estagios": ""}, {"nome": "Smart Money Ventures", "link": "http://smartmoney.ventures/", "estagios": ""}, {"nome": "Solum VC", "link": "https://solumvc.com", "estagios": ""}, {"nome": "Superjobs.vc", "link": "https://superjobs.vc/", "estagios": ""}, {"nome": "Triaxis Capital", "link": "http://www.triaxiscapital.com", "estagios": ""}, {"nome": "Valor Capital Group", "link": "http://valorcapitalgroup.com/", "estagios": ""}, {"nome": "Vox Capital", "link": "http://www.voxcapital.com.br/", "estagios": ""}, {"nome": "Wayra", "link": "https://br.wayra.co", "estagios": ""}, {"nome": "Ztech (Ambev)", "link": "https://www.linkedin.com/company/z-tech-brasil/?originalSubdomain=br", "estagios": ""}, {"nome": "Core Angels Atlantic", "link": "", "estagios": ""}];
+
+  function normalizeUrl(url) {
+    if (!url) return "";
+    let clean = url.trim();
+    if (!clean.startsWith("http://") && !clean.startsWith("https://")) {
+      clean = "https://" + clean;
+    }
+    return clean;
+  }
+
+  function renderFundos(list) {
+    const container = document.getElementById("fundosContainer");
+    container.innerHTML = "";
+    document.getElementById("fundosCount").textContent = list.length;
+
+    if (!list.length) {
+      container.innerHTML = '<p style="grid-column:1/-1; color:var(--ink-soft); padding:32px; text-align:center; background:var(--card); border:1px solid var(--line); border-radius:12px;">Nenhum fundo encontrado.</p>';
+      return;
+    }
+
+    for (const f of list) {
+      const card = document.createElement("div");
+      card.className = "fundo-card";
+
+      const url = normalizeUrl(f.link);
+      const host = f.link ? f.link.replace(/^https?:\/\//i, "").replace(/\/.*$/, "") : "";
+      const stageInfo = f.estagios ? `<span class="badge-tipo" style="margin-top:4px; display:inline-block;">${f.estagios}</span>` : "";
+
+      card.innerHTML = `
+        <div>
+          <div class="fundo-title">${f.nome}</div>
+          <div class="fundo-sub">${host || (f.estagios ? "" : "Link sob consulta")}</div>
+          ${stageInfo}
+        </div>
+        ${url ? `<a href="${url}" target="_blank" rel="noopener" class="fundo-link">Acessar &nearr;</a>` : ""}
+      `;
+      container.appendChild(card);
+    }
+  }
+
+  document.getElementById("fundosSearch").addEventListener("input", (e) => {
+    const q = e.target.value.toLowerCase().trim();
+    const filtered = FUNDOS.filter(f => {
+      return (f.nome && f.nome.toLowerCase().includes(q)) ||
+             (f.link && f.link.toLowerCase().includes(q)) ||
+             (f.estagios && f.estagios.toLowerCase().includes(q));
+    });
+    renderFundos(filtered);
+  });
+
+  renderFundos(FUNDOS);
+</script>
+</body>
+</html>
